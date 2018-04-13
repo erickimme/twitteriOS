@@ -8,10 +8,18 @@
 
 import UIKit
 
-class TimelineViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class TimelineViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate {
+    
+    func did(post: Tweet) {
+        print("YAY!")
+    }
     
     var tweets: [Tweet] = []
-    
+    var refreshControl: UIRefreshControl!
+    var isMoreDataLoading = false
+    var counter = 20
+    var tapped: UITapGestureRecognizer!
+ 
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
@@ -23,14 +31,40 @@ class TimelineViewController: UIViewController, UITableViewDelegate, UITableView
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 100
         
-        APIManager.shared.getHomeTimeLine { (tweets, error) in
+        refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refreshControlFunction), for: .valueChanged)
+        tableView.insertSubview(refreshControl, at: 0)
+        
+//        APIManager.shared.getHomeTimeLine(counter: counter, completion: { (tweets, error) in
+//            if let tweets = tweets {
+//                self.tweets = tweets
+//                self.tableView.reloadData()
+//            } else if let error = error {
+//                print("Error viewdidload getting home timeline: " + error.localizedDescription)
+//            }
+//        })
+        
+        APIManager.shared.getHomeTimeLine(counter: counter, completion: { (tweets, error) in
             if let tweets = tweets {
                 self.tweets = tweets
                 self.tableView.reloadData()
             } else if let error = error {
                 print("Error getting home timeline: " + error.localizedDescription)
             }
-        }
+        })
+    }
+
+    func refreshControlFunction(){
+        counter = 20
+        APIManager.shared.getHomeTimeLine(counter: counter, completion: { (tweets, error) in
+            if let tweets = tweets {
+                self.tweets = tweets
+                self.tableView.reloadData()
+                self.refreshControl.endRefreshing()
+            } else if let error = error {
+                print("Error refreshcontrolfunction getting home timeline: " + error.localizedDescription)
+            }
+        })
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -45,9 +79,40 @@ class TimelineViewController: UIViewController, UITableViewDelegate, UITableView
         return cell
     }
     
+    
+//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        if (!isMoreDataLoading){
+//            let scrollViewContentHeight = tableView.contentSize.height
+//            let scrollOffsetThreshold = scrollViewContentHeight - tableView.bounds.size.height
+//
+//            // When the user has scrolled past the threshold, start requesting
+//            if(scrollView.contentOffset.y > scrollOffsetThreshold && tableView.isDragging) {
+//
+//                isMoreDataLoading = true
+//
+//                // Code to load more results
+//                if (counter < 200){
+//                    counter += 10
+//                }
+//
+//                reload(at: counter)
+//            }
+//        }
+//    }
+    
+    
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
+    
+    
+    
+    
+    
+    
+    
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
