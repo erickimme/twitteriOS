@@ -9,13 +9,13 @@ Time spent: **5** hours spent in total
 The following **required** functionality is completed:
 
 - [x] User sees app icon in home screen and styled launch screen
-- [x ] User can sign in using OAuth login flow
+- [x] User can sign in using OAuth login flow
 - [x] User can Logout
 - [x] Data model classes
 - [x] User can view last 20 tweets from their home timeline with the user profile picture, username, tweet text, and timestamp.
 - [x] User can pull to refresh.
 - [x] User can tap the retweet and favorite buttons in a tweet cell to retweet and/or favorite a tweet.
-- [x ] Using AutoLayout, the Tweet cell should adjust it's layout for iPhone 7, Plus and SE device sizes as well as accommodate device rotation.
+- [x] Using AutoLayout, the Tweet cell should adjust it's layout for iPhone 7, Plus and SE device sizes as well as accommodate device rotation.
 
 The following **stretch** features are implemented:
 
