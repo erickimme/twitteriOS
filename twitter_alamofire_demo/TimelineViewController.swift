@@ -80,26 +80,40 @@ class TimelineViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     
-//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        if (!isMoreDataLoading){
-//            let scrollViewContentHeight = tableView.contentSize.height
-//            let scrollOffsetThreshold = scrollViewContentHeight - tableView.bounds.size.height
-//
-//            // When the user has scrolled past the threshold, start requesting
-//            if(scrollView.contentOffset.y > scrollOffsetThreshold && tableView.isDragging) {
-//
-//                isMoreDataLoading = true
-//
-//                // Code to load more results
-//                if (counter < 200){
-//                    counter += 10
-//                }
-//
-//                reload(at: counter)
-//            }
-//        }
-//    }
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if (!isMoreDataLoading){
+            let scrollViewContentHeight = tableView.contentSize.height
+            let scrollOffsetThreshold = scrollViewContentHeight - tableView.bounds.size.height
+
+            // When the user has scrolled past the threshold, start requesting
+            if(scrollView.contentOffset.y > scrollOffsetThreshold && tableView.isDragging) {
+
+                isMoreDataLoading = true
+
+                // Code to load more results
+                if (counter < 200){
+                    counter += 10
+                }
+
+                reload(at: counter)
+            }
+        }
+    }
     
+    
+    func reload(at: Int){
+        APIManager.shared.getHomeTimeLine(counter: counter, completion: { (tweets, error) in
+            if let tweets = tweets {
+                self.tweets = tweets
+                self.tableView.reloadData()
+                self.isMoreDataLoading = false
+                //                self.refreshControl.endRefreshing()
+                
+            }// else if let error = error {
+            //                print("Error reload getting home timeline: " + error.localizedDescription)
+            //            }
+        })
+    }
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -107,7 +121,22 @@ class TimelineViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     
-    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+//        if(segue.identifier == "detailSegue"){
+//            let cell = sender as! UITableViewCell
+//            if let indexPath = tableView.indexPath(for: cell){
+//                let tweet = tweets[indexPath.row]
+//                let destination = segue.destination as! DetailViewController
+//                destination.tweet = tweet
+//            }
+//        }
+        
+        if(segue.identifier == "tweetSegue"){
+            let destination = segue.destination as! ComposeTweetViewController
+            
+        }
+    }
     
     
     
