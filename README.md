@@ -67,9 +67,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 
-# Project 6 - *Name of App Here*
+# Project 6 - *twitteriOS*
 
-Time spent: **X** hours spent in total
+Time spent: **5** hours spent in total
 
 ## User Stories
 
@@ -105,7 +105,8 @@ Please list two areas of the assignment you'd like to **discuss further with you
 
 Here's a walkthrough of implemented user stories:
 
-<img src='https://i.imgur.com/47M4lAq.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+![alt text](https://github.com/erickimme/twitteriOS/blob/master/ios_fbu_twitter-master/twitter_week6_eric.gif)
+
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
