@@ -105,7 +105,7 @@ Please list two areas of the assignment you'd like to **discuss further with you
 
 Here's a walkthrough of implemented user stories:
 
-<img src='https://i.imgur.com/47M4lAq.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+![alt text](https://github.com/erickimme/parsetagram/blob/master/parsetagram_eric.gif)
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
